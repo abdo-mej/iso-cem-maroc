@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ISO-CEM MAROC - Matériaux de Construction & BTP</title>
+    <link rel="icon" type="image/png" href="C:/Users/abder/Desktop/ISO CEM MAROC.png">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary-blue: #0f172a;
+            --secondary-blue: #1e40af;
+            --accent-blue: #3b82f6;
+            --light-blue: #60a5fa;
+            --gradient-primary: linear-gradient(135deg, #0f172a 0%, #1e40af 50%, #3b82f6 100%);
+            --gradient-secondary: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
+            --white: #ffffff;
+            --light-gray: #f8fafc;
+            --medium-gray: #e2e8f0;
+            --dark-gray: #64748b;
+            --text-dark: #1e293b;
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            --border-radius: 16px;
+            --border-radius-lg: 24px;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--light-gray);
+            overflow-x: hidden;
+        }
+        html { scroll-behavior: smooth; }
+        /* Header, voir code initial */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--medium-gray);
+        }
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .logo-section {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .logo {
+            width: 56px;
+            height: 56px;
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
+            box-shadow: var(--shadow);
+        }
+        .company-name {
+            font-size: 1.75rem;
+            font-weight: 800;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.025em;
+        }
+        nav ul { display: flex; list-style: none; gap: 2.5rem; }
+        nav a {
+            text-decoration: none;
+            color: var(--dark-gray);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+            padding: 0.5rem 0;
+        }
+        nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            transition: var(--transition);
+        }
+        nav a:hover { color: var(--primary-blue); }
+        nav a:hover::after { width: 100%; }
+        .header-actions { display: flex; align-items: center; gap: 1.5rem; }
+        .search-container { position: relative; }
+        .search-box {
+            padding: 0.75rem 1.25rem;
+            border: 2px solid var(--medium-gray);
+            border-radius: 12px;
+            outline: none;
+            width: 220px;
+            font-size: 0.9rem;
+        }
+        .search-results {
+            position: absolute;
+            top: 100%; left: 0; right: 0;
+            background: var(--white);
+            border: 1px solid var(--medium-gray);
+            border-radius: 12px;
+            box-shadow: var(--shadow-xl);
+            max-height: 350px; overflow-y: auto;
+            display: none; z-index: 1001; margin-top: 0.5rem;
+        }
+        .search-result-item { padding: 1rem 1.25rem; border-bottom: 1px solid var(--light-gray); cursor: pointer;}
+        .lang-switcher { display: flex; gap: 0.5rem; background: var(--light-gray); padding: 0.25rem; border-radius: 10px; }
+        .lang-btn { padding: 0.5rem 1rem; border: none; background: transparent; color: var(--dark-gray); border-radius: 8px; cursor: pointer; font-weight: 500; font-size: 0.85rem;}
+        .lang-btn.active { background: var(--white); color: var(--primary-blue); box-shadow: var(--shadow);}
+        /* Hero section : texte à gauche, image à droite */
+        .hero {
+            background: var(--gradient-primary);
+            color: var(--white);
+            padding: 6rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-flex {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+        }
+        .hero-content {
+            flex: 1 1 400px;
+            min-width: 330px;
+            text-align: left;
+        }
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1.5rem;
+        }
+        .hero-subtitle { font-size: 1.6rem; margin-bottom: 1.5rem; opacity: 0.98; font-weight: 500; }
+        .hero-description {
+            font-size: 1.15rem;
+            margin-bottom: 2rem;
+            opacity: 0.93;
+            max-width: 520px;
+        }
+        .hero-img {
+            flex: 1 1 400px;
+            min-width: 330px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+        .hero-img img {
+            max-width: 600px;
+            width: 100%;
+            height: 400px;
+            border-radius: 30px;
+            box-shadow: var(--shadow-lg);
+            object-fit: cover;
+        }
+        /* About section, maintenir */
+        .about { padding: 8rem 2rem; background: var(--white); }
+        .container { max-width: 1400px; margin: 0 auto; }
+        .section-title { font-size: 2.4rem; font-weight: 800; background: var(--gradient-primary);
+          -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+          text-align: center; margin-bottom: 4rem; letter-spacing: -0.025em;}
+        .about-content { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2.5rem; }
+        .about-card { background: var(--gradient-secondary); padding: 3rem 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow);}
+        /* Products section, maintenir */
+        .products { padding: 8rem 2rem; background: var(--light-gray); }
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 3rem; margin-top: 3rem;}
+        .product-card { background: var(--white); padding: 3rem 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow);}
+        /* Solutions section : modifiée */
+        .solutions {padding: 8rem 2rem; background: var(--white);}
+        .solutions-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 3rem; margin-top: 3rem;}
+        .solution-card { background: var(--gradient-secondary); padding: 3rem 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow); position: relative; }
+        .solution-btn {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.7rem 1.5rem;
+            background: var(--accent-blue);
+            color: #fff;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        .solution-btn:hover { background: var(--secondary-blue);}
+        /* Contact section, maintenir */
+        .contact {padding: 8rem 2rem; background: var(--light-gray);}
+        .contact-grid {display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 3rem; margin-top: 3rem;}
+        .contact-card {background: var(--white); padding: 3rem 2.5rem; border-radius: var(--border-radius-lg); box-shadow: var(--shadow);}
+        /* Map section nouvelle */
+        .map-section {
+            background: var(--white);
+            padding: 5rem 2rem 3rem 2rem;
+        }
+        .map-title {
+            font-size: 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            color: var(--primary-blue);
+        }
+        .google-map {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+        }
+        /* Footer complet avec mentions légales + nouveautés */
+        footer {
+            background: var(--primary-blue);
+            color: var(--white);
+            text-align: left;
+            padding: 3rem 2rem 1rem 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+        .footer-flex {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2.5rem;
+            justify-content: space-between;
+        }
+        .footer-col { flex: 1 1 250px; margin-bottom: 2rem; }
+        .footer-title { font-weight: 700; font-size: 1.15rem; margin-bottom: 1.2rem;}
+        .footer-legal {
+            margin-top: 1.5rem;
+            font-size: 0.98rem;
+            color: #c9d6f3;
+            line-height: 1.8;
+        }
+        .footer-social {
+            display: flex; gap: 1.1rem;
+        }
+        .footer-social a {
+            color: #fff; font-size: 1.4rem; background: var(--secondary-blue); border-radius: 50%; padding: 0.4rem 0.65rem;
+            text-decoration: none; transition: background 0.3s;
+        }
+        .footer-social a:hover { background: var(--accent-blue);}
+        .footer-newsletter input[type="email"] {
+            padding: 0.7rem; border-radius: 7px; border: none; margin-right: 0.5rem;
+            width: 180px;
+        }
+        .footer-newsletter button {
+            padding: 0.7rem 1.2rem; border-radius: 7px;
+            border: none; background: var(--accent-blue); color: #fff; font-weight: 600;
+            cursor: pointer;
+        }
+        .footer-newsletter button:hover { background: var(--secondary-blue);}
+        .footer-base { text-align: center; margin-top: 2rem; color: #dbeafe; font-size: 0.98rem; }
+        /* Responsive */
+        @media (max-width: 900px) {
+            .hero-flex { flex-direction: column; text-align: left; gap: 2.3rem;}
+            .hero-img { justify-content: center; }
+            .footer-flex { flex-direction: column;}
+        }
+        @media (max-width: 650px) {
+            .hero-title { font-size: 2rem;}
+            .section-title { font-size: 1.3rem;}
+            .footer-flex { gap: 1.2rem;}
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="C:/Users/abder/Desktop/ISO CEM MAROC.png" class="logo" aria-label="Logo ISO-CEM MAROC">
+                <div class="company-name">ISO-CEM MAROC</div>
+            </div>
+            <nav aria-label="Navigation principale">
+                <ul>
+                    <li><a href="#accueil">Accueil</a></li>
+                    <li><a href="#produits">Produits</a></li>
+                    <li><a href="#solutions">Solutions</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="search-container">
+                    <input type="search" class="search-box" placeholder="Rechercher..." aria-label="Recherche">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <div class="lang-switcher">
+                    <button class="lang-btn active" data-lang="fr" aria-label="Français">FR</button>
+                    <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+                    <button class="lang-btn" data-lang="es" aria-label="Español">ES</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section (image à droite, texte à gauche) -->
+    <section class="hero" id="accueil">
+        <div class="hero-flex">
+            <div class="hero-content">
+                <div class="hero-title">ISO-CEM MAROC</div>
+                <div class="hero-subtitle">Votre Partenaire de Confiance dans le BTP et les Matériaux de Construction</div>
+                <div class="hero-description">
+                    Société à Responsabilité Limitée établie à Casablanca depuis 2024, ISO-CEM MAROC s'impose comme un acteur dynamique spécialisé dans l'importation et l'exportation de matériaux de construction, la fabrication de mortiers et bétons secs, ainsi que la réalisation de travaux divers de construction et de génie civil.
+                </div>
+            </div>
+            <div class="hero-img">
+                <img src="https://grandes-ecoles.studyrama.com/sites/default/files/field/image/choisir-specialite-btp-construction-ecole-ingenieurs.jpg" alt="Matériaux de construction">
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <h2 class="section-title">Notre Entreprise</h2>
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>🏢 Entreprise Établie</h3>
+                    <p>Société à Responsabilité Limitée créée en 2024, forte d'une année d'expérience dans le secteur du BTP et des matériaux de construction au Maroc.</p>
+                </div>
+                <div class="about-card">
+                    <h3>🔧 Expertise Technique</h3>
+                    <p>Spécialisée dans la fabrication de mortiers et bétons secs, l'import-export de matériaux et la réalisation d'ouvrages de génie civil.</p>
+                </div>
+                <div class="about-card">
+                    <h3>✅ Conformité Légale</h3>
+                    <p>Entreprise active en parfaite conformité avec les obligations légales et fiscales du Maroc, établie à Casablanca.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="produits">
+        <div class="container">
+            <h2 class="section-title">Nos Produits</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-icon">🧱</div>
+                    <h3>Mortier Sec Standard</h3>
+                    <p>Solution prête à l'emploi conçue pour la maçonnerie courante, idéale pour la pose de briques et blocs ainsi que pour la réalisation d'enduits traditionnels. Facilité de mise en œuvre garantie pour tous vos travaux de construction.</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">🏗️</div>
+                    <h3>Béton Sec Haute Performance</h3>
+                    <p>Formulation robuste spécialement développée pour les ouvrages exigeants nécessitant robustesse et longévité. Applications dédiées aux dalles, chapes, fondations et structures nécessitant une résistance optimale.</p>
+                </div>
+                <div class="product-card">
+                    <div class="product-icon">⚙️</div>
+                    <h3>Mortiers Techniques Spéciaux</h3>
+                    <p>Gamme avancée de mortiers à prise rapide pour applications spécialisées : ragréage, réparation, applications industrielles et projets de rénovation. Solutions techniques adaptées aux besoins spécifiques.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section class="solutions" id="solutions">
+        <div class="container">
+            <h2 class="section-title">Nos Solutions & Services</h2>
+            <div class="solutions-grid">
+                <div class="solution-card">
+                    <h3>🔧 Accompagnement Technique</h3>
+                    <p>Service complet incluant conseils personnalisés sur le choix et la mise en œuvre des produits, diagnostic précis des besoins de chantier, formation technique des équipes et suivi professionnel sur site.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>🌍 Import-Export Sur-Mesure</h3>
+                    <p>Solutions intégrées comprenant sourcing optimisé des matières premières, logistique complète pour les marchés marocain et international, et gestion experte des flux commerciaux.</p>
+                </div>
+                <div class="solution-card">
+                    <h3>🪣 ISO LASURE</h3>
+                    <p>ISO LASURE PRÉFA® est une lasure minérale spécialement conçue pour la protection et l’harmonisation esthétique des parements en béton. Elle conserve l’aspect naturel du béton tout en le protégeant efficacement contre les agressions extérieures (UV, humidité, pollution).</p>
+                    <a href="FICHE_TECHNIQUE.pdf" target="_blank" class="solution-btn">Fiche technique</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Notre Équipe Contact</h2>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-avatar">NM</div>
+                    <div class="contact-info">
+                        <h3>Najib Mejdoubi</h3>
+                        <p><strong>Responsable technique, spécialiste en développement de produits pour le secteur du béton.</strong></p>
+                        <p>📍 Casablanca</p>
+                        <p>📞 <a href="tel:+212661325671">+212 6 61 32 56 71</a></p>
+                        <p>✉️ <a href="mailto:najib.mejdoubi@iso-cem.ma">najib.mejdoubi@iso-cem.ma</a></p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-avatar">ZD</div>
+                    <div class="contact-info">
+                        <h3>Zakaria Daoudi</h3>
+                        <p><strong>Expert Technique</strong></p>
+                        <p>📍 Casablanca</p>
+                        <p>📞 <a href="tel:+212666515441">+212 6 66 51 54 41</a></p>
+                        <p>✉️ <a href="mailto:zakaria.daoudi@iso-cem.ma">zakaria.daoudi@iso-cem.ma</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section -->
+    <section class="map-section" id="map">
+        <div class="container">
+            <h2 class="map-title">Nous Localiser</h2>
+            <iframe
+                class="google-map"
+                src="https://www.google.com/maps?q=61+Avenue+Lalla+Yacout,+Casablanca,+Maroc&output=embed">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-flex">
+            <div class="footer-col">
+                <div class="footer-title">ISO-CEM MAROC</div>
+                <div>
+                    61 Avenue Lalla Yacout, Étage 1 n°39,<br>
+                    Casablanca, Maroc
+                </div>
+                <div style="margin-top:1rem">📞 +212 6 61 32 56 71<br>✉️ contact@iso-cem.ma</div>
+            </div>
+           
+            
+            <div class="footer-col footer-legal">
+                <b>Mentions Légales</b><br>
+                RC : 600765<br>
+                ICE : 003357228000083<br>
+                Tribunal : Casablanca<br>
+                Capital Social : 100 000 DHS<br>
+            </div>
+        </div>
+        <div class="footer-base">
+            &copy; 2024 ISO-CEM MAROC - Tous droits réservés
+        </div>
+    </footer>
+
+    <script>
+        // Recherche simple, pas multi-langue
+        const searchBox = document.querySelector('.search-box');
+        const searchResults = document.getElementById('searchResults');
+        const searchData = [
+            { title: 'Mortier Sec Standard', section: 'produits', description: 'Solution prête à l\'emploi pour maçonnerie' },
+            { title: 'Béton Sec Haute Performance', section: 'produits', description: 'Pour dalles, chapes, fondations' },
+            { title: 'Mortiers Techniques Spéciaux', section: 'produits', description: 'Prise rapide, ragréage, réparation' },
+            { title: 'Accompagnement Technique', section: 'solutions', description: 'Conseils, diagnostics, formation' },
+            { title: 'Import-Export Sur-Mesure', section: 'solutions', description: 'Sourcing, logistique intégrée' },
+            { title: 'ISO LASURE', section: 'solutions', description: 'Protection et harmonisation béton' },
+            { title: 'Najib Mejdoubi', section: 'contact', description: 'Responsable Commercial - 065522272' },
+            { title: 'Zakaria Daoudi', section: 'contact', description: 'Expert Technique - 076329022' },
+        ];
+        searchBox.addEventListener('input', function(e) {
+            const query = e.target.value.toLowerCase().trim();
+            if (query.length === 0) {
+                searchResults.style.display = 'none';
+                return;
+            }
+            const filtered = searchData.filter(item =>
+                item.title.toLowerCase().includes(query) ||
+                item.description.toLowerCase().includes(query)
+            );
+            if (filtered.length > 0) {
+                searchResults.innerHTML = filtered.map(item =>
+                    `<div class="search-result-item" onclick="scrollToSection('${item.section}')">
+                        <strong>${item.title}</strong><br>
+                        <small>${item.description}</small>
+                    </div>`
+                ).join('');
+                searchResults.style.display = 'block';
+            } else {
+                searchResults.innerHTML = '<div class="search-result-item">Aucun résultat trouvé</div>';
+                searchResults.style.display = 'block';
+            }
+        });
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.search-container')) searchResults.style.display = 'none';
+        });
+        window.scrollToSection = function(sectionId) {
+            const section = document.getElementById(sectionId) || document.querySelector('.' + sectionId);
+            if (section) {
+                section.scrollIntoView({ behavior: 'smooth' });
+                searchResults.style.display = 'none';
+                searchBox.value = '';
+            }
+        };
+        // Langue
+        const langButtons = document.querySelectorAll('.lang-btn');
+        langButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                langButtons.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                // Pas d'implémentation multilingue dynamique ici, à compléter selon besoin
+            });
+        });
+        // Animation fade-in simple
+        document.querySelectorAll('.fade-in').forEach(el => {
+            el.classList.add('visible');
+        });
+        const translations = {
+  fr: {
+    heroTitle: "ISO-CEM MAROC",
+    heroSubtitle: "Votre Partenaire de Confiance dans le BTP et les Matériaux de Construction",
+    heroDescription: "Société à Responsabilité Limitée établie à Casablanca depuis 2024, ISO-CEM MAROC s'impose comme un acteur dynamique spécialisé dans l'importation et l'exportation de matériaux de construction, la fabrication de mortiers et bétons secs, ainsi que la réalisation de travaux divers de construction et de génie civil.",
+    sectionEntreprise: "Notre Entreprise",
+    sectionProduits: "Nos Produits",
+    mortierCardTitle: "Mortier Sec Standard",
+    mortierCardText: "Solution prête à l'emploi conçue pour la maçonnerie courante, idéale pour la pose de briques et blocs ainsi que pour la réalisation d'enduits traditionnels. Facilité de mise en œuvre garantie pour tous vos travaux de construction.",
+    betonCardTitle: "Béton Sec Haute Performance",
+    betonCardText: "Formulation robuste spécialement développée pour les ouvrages exigeants nécessitant robustesse et longévité. Applications dédiées aux dalles, chapes, fondations et structures nécessitant une résistance optimale.",
+    specialCardTitle: "Mortiers Techniques Spéciaux",
+    specialCardText: "Gamme avancée de mortiers à prise rapide pour applications spécialisées : ragréage, réparation, applications industrielles et projets de rénovation. Solutions techniques adaptées aux besoins spécifiques.",
+    sectionSolutions: "Nos Solutions & Services",
+    cardAccompagnement: "Accompagnement Technique",
+    accompagnementText: "Service complet incluant conseils personnalisés sur le choix et la mise en œuvre des produits, diagnostic précis des besoins de chantier, formation technique des équipes et suivi professionnel sur site.",
+    cardImport: "Import-Export Sur-Mesure",
+    importText: "Solutions intégrées comprenant sourcing optimisé des matières premières, logistique complète pour les marchés marocain et international, et gestion experte des flux commerciaux.",
+    cardLasure: "ISO LASURE",
+    lasureText: "ISO LASURE PRÉFA® est une lasure minérale spécialement conçue pour la protection et l’harmonisation esthétique des parements en béton. Elle conserve l’aspect naturel du béton tout en le protégeant efficacement contre les agressions extérieures (UV, humidité, pollution).",
+    ficheBtn: "Fiche technique",
+    sectionEquipe: "Notre Équipe Contact",
+    mapSection: "Nous Localiser",
+    footerMentions: "<b>Mentions Légales</b><br>RC : 600765<br>ICE : 003357228000083<br>Tribunal : Casablanca<br>Capital Social : 100 000 DHS<br>",
+    footerNewsletter: "Newsletter",
+    newsletterBtn: "S'inscrire",
+    footerFollow: "Suivez-nous",
+    baseFooter: "&copy; 2024 ISO-CEM MAROC - Tous droits réservés"
+  },
+  en: {
+    heroTitle: "ISO-CEM MAROC",
+    heroSubtitle: "Your Trusted Partner in Construction and Building Materials",
+    heroDescription: "ISO-CEM MAROC, established as a limited liability company in Casablanca since 2024, stands as a dynamic player specializing in the import and export of construction materials, manufacturing of dry mortars and concretes, and a wide range of civil engineering works.",
+    sectionEntreprise: "Our Company",
+    sectionProduits: "Our Products",
+    mortierCardTitle: "Standard Dry Mortar",
+    mortierCardText: "Ready-to-use solution designed for common masonry, ideal for laying bricks and blocks and for performing traditional plasters. Guaranteed easy application for all your construction projects.",
+    betonCardTitle: "High-Performance Dry Concrete",
+    betonCardText: "Robust formulation developed for demanding works requiring durability and longevity. Designed for slabs, screeds, foundations, and structures needing optimal strength.",
+    specialCardTitle: "Special Technical Mortars",
+    specialCardText: "Advanced range of fast-setting mortars for specialized uses: leveling, repair, industrial and renovation projects. Technical solutions tailored to specific needs.",
+    sectionSolutions: "Our Solutions & Services",
+    cardAccompagnement: "Technical Support",
+    accompagnementText: "Complete service including personalized advice on product selection and implementation, precise site requirements diagnosis, technical training for teams, and professional on-site supervision.",
+    cardImport: "Custom Import-Export",
+    importText: "Integrated solutions including optimized raw material sourcing, comprehensive logistics for both Moroccan and international markets, and expert management of business flows.",
+    cardLasure: "ISO LASURE",
+    lasureText: "ISO LASURE PRÉFA® is a mineral stain specifically designed for the protection and aesthetic harmonization of concrete facings. It preserves the natural appearance of concrete while effectively protecting against external aggressions (UV, humidity, pollution).",
+    ficheBtn: "Technical datasheet",
+    sectionEquipe: "Our Team Contact",
+    mapSection: "Find Us",
+    footerMentions: "<b>Legal Notice</b><br>RC: 600765<br>ICE: 003357228000083<br>Court: Casablanca<br>Share Capital: 100,000 MAD<br>",
+    footerNewsletter: "Newsletter",
+    newsletterBtn: "Subscribe",
+    footerFollow: "Follow us",
+    baseFooter: "&copy; 2024 ISO-CEM MAROC - All rights reserved"
+  },
+  es: {
+    heroTitle: "ISO-CEM MAROC",
+    heroSubtitle: "Su socio de confianza en construcción y materiales de obra",
+    heroDescription: "ISO-CEM MAROC, sociedad de responsabilidad limitada establecida en Casablanca desde 2024, se presenta como un actor dinámico especializado en la importación y exportación de materiales de construcción, la fabricación de morteros y hormigones secos, así como en la realización de obras diversas y de ingeniería civil.",
+    sectionEntreprise: "Nuestra Empresa",
+    sectionProduits: "Nuestros Productos",
+    mortierCardTitle: "Mortero Seco Estándar",
+    mortierCardText: "Solución lista para usar diseñada para albañilería común, ideal para colocar ladrillos y bloques, así como para realizar revestimientos tradicionales. Fácil aplicación garantizada para todas sus obras.",
+    betonCardTitle: "Hormigón Seco Alto Rendimiento",
+    betonCardText: "Formulación robusta desarrollada especialmente para obras exigentes que requieren robustez y durabilidad. Aplicaciones para losas, soleras, cimientos y estructuras que exigen máxima resistencia.",
+    specialCardTitle: "Morteros Técnicos Especiales",
+    specialCardText: "Gama avanzada de morteros de fraguado rápido para aplicaciones especializadas: nivelación, reparación, usos industriales y reformas. Soluciones técnicas adaptadas a necesidades concretas.",
+    sectionSolutions: "Nuestras Soluciones y Servicios",
+    cardAccompagnement: "Asistencia Técnica",
+    accompagnementText: "Servicio completo, que incluye asesoramiento personalizado sobre elección y aplicación de productos, diagnóstico preciso de necesidades, formación técnica y seguimiento profesional en obra.",
+    cardImport: "Importación-Exportación a Medida",
+    importText: "Soluciones integradas: suministro optimizado de materias primas, logística completa para Marruecos y el extranjero, y gestión experta de flujos comerciales.",
+    cardLasure: "ISO LASURE",
+    lasureText: "ISO LASURE PRÉFA® es una lasur mineral especialmente diseñada para proteger y harmonizar estéticamente los encofrados de hormigón. Conserva el aspecto natural del hormigón y lo protege eficazmente frente a agresiones externas (UV, humedad, contaminación).",
+    ficheBtn: "Ficha técnica",
+    sectionEquipe: "Nuestro Equipo Contacto",
+    mapSection: "Dónde estamos",
+    footerMentions: "<b>Aviso legal</b><br>RC: 600765<br>ICE: 003357228000083<br>Juzgado: Casablanca<br>Capital Social: 100.000 DHS<br>",
+    footerNewsletter: "Boletín",
+    newsletterBtn: "Suscribirse",
+    footerFollow: "Síguenos",
+    baseFooter: "&copy; 2024 ISO-CEM MAROC - Todos los derechos reservados"
+  }
+};
+
+function applyTranslation(lang) {
+  const t = translations[lang];
+  // Hero section
+  document.querySelector('.hero-title').textContent = t.heroTitle;
+  document.querySelector('.hero-subtitle').textContent = t.heroSubtitle;
+  document.querySelector('.hero-description').textContent = t.heroDescription;
+  // About section (UNIQUEMENT titre traduit !)
+  document.querySelector('.section-title').textContent = t.sectionEntreprise;
+  // Les cards "about" NE SONT PAS TRADUITES
+
+  // Produits
+  document.querySelectorAll('.section-title')[1].textContent = t.sectionProduits;
+  document.querySelector('.products-grid .product-card:nth-child(1) h3').textContent = t.mortierCardTitle;
+  document.querySelector('.products-grid .product-card:nth-child(1) p').textContent = t.mortierCardText;
+  document.querySelector('.products-grid .product-card:nth-child(2) h3').textContent = t.betonCardTitle;
+  document.querySelector('.products-grid .product-card:nth-child(2) p').textContent = t.betonCardText;
+  document.querySelector('.products-grid .product-card:nth-child(3) h3').textContent = t.specialCardTitle;
+  document.querySelector('.products-grid .product-card:nth-child(3) p').textContent = t.specialCardText;
+
+  // Solutions
+  document.querySelectorAll('.section-title')[2].textContent = t.sectionSolutions;
+  document.querySelector('.solutions-grid .solution-card:nth-child(1) h3').textContent = t.cardAccompagnement;
+  document.querySelector('.solutions-grid .solution-card:nth-child(1) p').textContent = t.accompagnementText;
+  document.querySelector('.solutions-grid .solution-card:nth-child(2) h3').textContent = t.cardImport;
+  document.querySelector('.solutions-grid .solution-card:nth-child(2) p').textContent = t.importText;
+  document.querySelector('.solutions-grid .solution-card:nth-child(3) h3').textContent = t.cardLasure;
+  document.querySelector('.solutions-grid .solution-card:nth-child(3) p').textContent = t.lasureText;
+  document.querySelector('.solutions-grid .solution-card:nth-child(3) .solution-btn').textContent = t.ficheBtn;
+  // Contact
+  document.querySelectorAll('.section-title')[3].textContent = t.sectionEquipe;
+  // Map
+  document.querySelector('.map-title').textContent = t.mapSection;
+  // Footer
+  document.querySelector('.footer-legal').innerHTML = t.footerMentions;
+  document.querySelector('.footer-title').textContent = "ISO-CEM MAROC";
+  document.querySelectorAll('.footer-title')[1].textContent = t.footerFollow;
+  document.querySelectorAll('.footer-title')[2].textContent = t.footerNewsletter;
+  document.querySelector('.footer-newsletter button').textContent = t.newsletterBtn;
+  document.querySelector('.footer-base').innerHTML = t.baseFooter;
+}
+
+// Ecouteurs pour les boutons langues
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', function () {
+    const lang = btn.dataset.lang;
+    applyTranslation(lang);
+  });
+});
+applyTranslation('fr');
+    </script>
+</body>
+</html>
